@@ -1,0 +1,21 @@
+Option Compare Database
+Option Explicit
+Private Declare Function GetUserNameNero Lib "advapi32" Alias _
+    "GetUserNameA" (ByVal lpBuffer As String, nSize As Long) As Long
+
+Function UserNameNero() As String
+Dim lngLen As Long, retval As Long
+Dim strUserNameNero As String
+    ' Cria um buffer grande o suficiente para o nome.
+    strUserNameNero = Space(255)
+    lngLen = 255 ' inicializa o tamanho da string.
+    ' lngLen contém agora o comprimento da string.
+    retval = GetUserNameNero(strUserNameNero, lngLen)
+    If retval Then
+        ' Remove o null do final da string.
+        UserNameNero = Left$(strUserNameNero, lngLen - 1)
+    Else
+        UserNameNero = ""
+    End If
+End Function
+

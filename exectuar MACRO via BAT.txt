@@ -1,0 +1,10 @@
+@echo off
+echo Iniciado em %date% %time%
+echo.
+echo - aguarde...
+echo.
+echo - a ligar aguarde...
+echo.
+echo.
+echo - a concluir...
+START /WAIT Msaccess.exe "C:\SeuBanco.mdb" /x "SuaMacro"

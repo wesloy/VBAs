@@ -1,0 +1,57 @@
+'exportar
+Private Sub btnExportar_Click()
+On Error GoTo tratar_erro
+
+'Variaveis
+Dim db As DAO.Database
+Dim qdf As DAO.QueryDef
+Dim sToday As String
+Dim fd As FileDialog
+Dim Title As String
+Dim vrtSelectedItem As Variant
+
+Set db = CurrentDb
+Set qdf = db.CreateQueryDef("qryDiag", reportDiagnostico(Me))
+Set qdf = db.CreateQueryDef("qryRegras", reportRegras(Me))
+Set qdf = db.CreateQueryDef("qryOperac", reportOperacional(Me))
+Set fd = Application.FileDialog(msoFileDialogSaveAs)
+
+'para renomear o arquivo
+sToday = Format(Now, "ddmmyyyy hhmmss")
+
+With fd
+    .AllowMultiSelect = False
+    .Title = "Save File"
+    .InitialFileName = "Report " & sToday & ".xlsx"
+    
+    If .Show = True Then
+        For Each vrtSelectedItem In .SelectedItems
+            'DoCmd.OutputTo acOutputQuery, "query or table name", acFormatXLS, vrtSelectedItem
+            DoCmd.TransferSpreadsheet acExport, acSpreadsheetTypeExcel12Xml, "qryDiag", vrtSelectedItem, True, "Diagnóstico"
+            db.QueryDefs.Delete "qryDiag"
+            DoCmd.TransferSpreadsheet acExport, acSpreadsheetTypeExcel12Xml, "qryRegras", vrtSelectedItem, True, "Regras"
+            db.QueryDefs.Delete "qryRegras"
+            DoCmd.TransferSpreadsheet acExport, acSpreadsheetTypeExcel12Xml, "qryOperac", vrtSelectedItem, True, "Operacional"
+            db.QueryDefs.Delete "qryOperac"
+            
+            'abrir arquivo exportado?
+            If MsgBox("Deseja abrir o arquivo exportado?", vbQuestion + vbYesNo, TITULO_ALERTA) = vbYes Then
+            abrirArquivo (vrtSelectedItem)
+            End If
+            
+        Next vrtSelectedItem
+    Else
+    'MsgBox "Nenhum arquivo foi selecionado", vbCritical, TITULO_ALERTA
+    db.QueryDefs.Delete "qryDiag"
+    db.QueryDefs.Delete "qryRegras"
+    db.QueryDefs.Delete "qryOperac"
+    Exit Sub
+    End If
+End With
+
+Exit Sub
+tratar_erro:
+        MsgBox "Error " & Err.Number & " (" & Err.Description & ") no processo: btnExportar_Click "
+        Exit Sub
+
+End Sub

@@ -1,0 +1,69 @@
+Public Function CALCULO_POSICOES(TEXTO As String, TOTAL_POSICAO As Integer, PREENCHIMENTO As String, LADO_DO_PREENCHIMENTO As String) As String
+'Desenvolvido Luciano Silva 
+'TEXTO = texto
+'TOTAL_POSICAO = total de caracter na posição
+'PREENCHIMENTO = tipo de prenchimento ex: " " ou 0
+'LADO_DO_PREENCHIMENTO = esquerdo ou direito
+
+Dim PALAVRA As String
+Dim CARACTER As Integer
+Dim TIPO_PREENCIMENTO As String
+Dim LADO_PREENCHIMENTO As String 'Esquerdo / Direito
+Dim VALOR_FINAL As String 'Valor Final
+Dim SPACO As String 'Espaço
+Dim I As Integer
+
+Dim TOTAL_CARACTER_SOBRANDO As Integer 'PALAVRA - CARACTER
+If TEXTO = "_" Then
+    TEXTO = " "
+End If
+'If TOTAL_POSICAO = "_" Then
+'   TOTAL_POSICAO = " "
+'End If
+If PREENCHIMENTO = "_" Then
+    PREENCHIMENTO = " "
+End If
+If LADO_DO_PREENCHIMENTO = "_" Then
+    LADO_DO_PREENCHIMENTO = " "
+End If
+PALAVRA = TEXTO
+CARACTER = TOTAL_POSICAO
+TIPO_PREENCIMENTO = PREENCHIMENTO
+LADO_PREENCHIMENTO = LADO_DO_PREENCHIMENTO
+
+'reseta as variaveis
+I = 0
+SPACO = ""
+
+TOTAL_CARACTER_SOBRANDO = CARACTER - Len(PALAVRA)
+
+If (TOTAL_CARACTER_SOBRANDO < 0) Then  'Se a palavra for maior do que o CAMPO
+   MsgBox ("Caracter maior do que a posição solicitada")
+Else
+     If (TIPO_PREENCIMENTO = "") Then
+         TIPO_PREENCIMENTO = " "
+     End If
+        
+    For I = 1 To TOTAL_CARACTER_SOBRANDO
+        SPACO = SPACO + TIPO_PREENCIMENTO
+    Next I
+' Verificar, pois caso não seja nada...alfredo
+If (LADO_PREENCHIMENTO = "ESQUERDA") Then
+    VALOR_FINAL = SPACO & PALAVRA
+    CALCULO_POSICOES = VALOR_FINAL
+Else
+    VALOR_FINAL = PALAVRA & SPACO
+    CALCULO_POSICOES = VALOR_FINAL
+End If
+
+End If
+
+End Function
+
+
+
+*****************
+  
+Dim teste As String
+teste = CALCULO_POSICOES("525", 10, "0", "ESQUERDA")
+MsgBox teste

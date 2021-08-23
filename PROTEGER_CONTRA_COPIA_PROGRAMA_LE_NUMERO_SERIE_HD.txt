@@ -1,0 +1,38 @@
+Public Function leHD(strHd As String)
+'Para proteger o sitema contra cópia
+Dim DB As Database, rst As Recordset, strSenha As String
+Dim intValor As Integer
+On Error GoTo Sai
+Set DB = CurrentDb
+
+Set rst = DB.OpenRecordset("HD")
+
+'se não há registro na tabela, adiciona
+If rst.EOF Then
+'Para adicionar o registro do HD solicita uma senha interna
+strSenha = InputBox("Informe o número de Série!", "Liberando Sistema")
+'teste binário senha digitada e senha interna
+'troque a senha interna para uma mais segura
+intValor = InStr(1, strSenha, "F50731B48F9E1769", 0)
+'senha confere, então libera
+If intValor = 1 Then
+rst.AddNew
+'encripta o número do hd antes de salvar na tabela
+rst!NumSerieHd = EncryptText(DriveSerialNumber(strHd))
+rst.Update
+Else
+MsgBox "Você não tem permissão para usar este programa", vbCritical, "GSCSystem"
+DoCmd.Quit
+End If
+ElseIf DecryptText(rst!NumSerieHd) <> DriveSerialNumber(strHd) Then
+MsgBox "Você não tem permissão para usar este programa", vbCritical, "GSCSystem"
+DoCmd.Quit
+End If
+
+rst.Close
+Set DB = Nothing
+Exit Function
+Sai:
+MsgBox Err.Description, vbCritical, "Fechando Programa"
+DoCmd.Quit
+End Function

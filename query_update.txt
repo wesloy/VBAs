@@ -1,0 +1,36 @@
+Dim db As Database
+Dim rs As Recordset
+Dim sql
+
+Dim data
+Dim status_atual As String
+Dim cartao As String
+
+
+
+data = CDate(t_data_status)
+status_atual = c_status
+cartao = t_cartao
+
+Set db = CurrentDb
+
+sql = "Update cadastro set status = '" & status_atual & "', data_alt_status = '" & data & "' where cartao = '" & cartao & " '"
+db.Execute (sql)
+
+
+
+
+
+**********se data não usa '' e sim ##
+
+
+UPDATE COM MAIS DE UM CAMPO DE VALIDAÇÃO.......
+
+
+sql = "UPDATE Cadastro SET cartao = '" & cartao & "', status = '" & status_atual & "', data_alt_status = '" & data & "'"
+sql = sql & " WHERE t_cpf = '" & T_CPF & "' and Codigo = " & CLng(Lista0.Column(0))
+
+
+BeginTrans
+db.Execute (sql)
+CommitTrans

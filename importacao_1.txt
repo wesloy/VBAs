@@ -1,0 +1,62 @@
+'variaveis fixas
+Dim db As Database
+Dim rs As Recordset
+Dim sql
+Set db = CurrentDb
+
+'variáveis de manipulação do arquivo
+Dim cont As Long
+Dim lstr As String
+Dim open_arquivo As String
+
+'variáveis de importação
+Dim cartao As String
+Dim cartao_d As String
+Dim cartao_e As String
+Dim bloqueio As String
+Dim Data_bloq
+Dim data_da_Importacao
+
+
+'carregar endereço do arquivo
+open_arquivo = "C:\Documents and Settings\weloy\Desktop\Efetividade\VRM\Import\cartoes_bloqueados.txt"
+
+'fechar qualquer arquivo que possa estar aberto na memória
+Close #1
+
+'Abrir o arquivo
+Open open_arquivo For Input As #1
+
+'carregando a primeira linha do arquivo
+Line Input #1, lstr
+
+'atribuindo valor a variável que contará os registros importados
+cont = 0
+
+
+    Do While EOF(1) = False
+        
+        If IsNumeric(Mid(lstr, 12, 6)) = True Then
+        
+        cartao_e = Left(Mid(lstr, 12, 17), 6)
+        cartao_d = Right(Mid(lstr, 12, 17), 10)
+        cartao = cartao_e & cartao_d
+        bloqueio = Mid(lstr, 52, 2)
+        Data_bloq = Mid(lstr, 57, 8)
+        data_da_Importacao = Format(Now, "dd/mm/yy")
+                
+        'inserção na tabela
+        sql = "insert into tbl_bloqueados values ('" & cartao & "','" & bloqueio & "','" & Data_bloq & "','" & data_da_Importacao & "')"
+        db.Execute (sql)
+        
+        'acrescentado ao contador
+        cont = cont + 1
+        
+        End If
+   
+   Line Input #1, lstr
+   Loop
+   
+   
+                
+   MsgBox "Inseridos:" & cont, vbInformation, "Total"

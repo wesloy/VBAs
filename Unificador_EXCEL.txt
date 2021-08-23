@@ -1,0 +1,44 @@
+Sub Macro1()
+
+Dim caminho As String
+
+'
+    ChDir "C:\Documents and Settings\weloy\Desktop\04 Abril\Referida"
+    'Workbooks.Open Filename:= _
+       ' "C:\Documents and Settings\weloy\Desktop\04 Abril\Referida\*.xls"
+
+         
+  caminho = "C:\Documents and Settings\weloy\Desktop\04 Abril\Referida\Lynx_Emissor 0" & 1 & " 04 2011 - Referida.xls"
+         For i = 1 To 30
+          
+          Workbooks.Open Filename:=caminho
+          
+          Dim narq As String
+          narq = Format((i + 1), "00")
+    
+      caminho = "C:\Documents and Settings\weloy\Desktop\04 Abril\Referida\Lynx_Emissor " & narq & " 04 2011 - Referida.xls"
+    
+
+    Range("A1").Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+   Windows("CONSOLIDA.xlsx").Activate
+    ActiveSheet.Paste
+    Range("a1").Select
+    Call LinhaVazia
+
+    Next
+  
+End Sub
+Sub LinhaVazia()
+
+Dim x As Integer
+
+x = ActiveSheet.UsedRange.Rows.Count
+
+ActiveCell.SpecialCells(xlLastCell).Select
+
+ActiveCell.EntireRow.Cells(1, 1).Offset(1, 0).Activate
+
+End Sub

@@ -1,0 +1,13 @@
+Dim fd As Object 'FileDialog
+
+Set fd = Application.FileDialog(3)
+With fd
+   .Title = "Selecciona un archivo"
+   .ButtonName = "Seleccionar"
+   .Filters.Add "Todos los archivos", "*.*"
+   If .Show Then
+      Me.txtRuta = fd.SelectedItems(1)
+   Else
+     Me.txtRuta = vbNullString
+   End If
+End With

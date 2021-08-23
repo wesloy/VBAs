@@ -1,0 +1,47 @@
+Sub Teste()
+
+'Public ie As InternetExplorer
+
+
+    'OBSERVAR A DATA DE ATUALIZAÇÃO, CASO NECESSARIO ALTERE A VARIAVEL A BAIXO
+    data = "31/05/2011"
+        
+    Set ie = CreateObject("InternetExplorer.Application")
+    ie.Visible = True
+    
+    ie.Navigate2 URL:="http://www.familiaextra.com.br/main.jsp?lumPageId=FF8081813663D81E013664A66B8C3631&lumA=1&lumII=FF808181369C925901369CB85C680EE2"
+
+    While ie.Busy: Sleep 10: DoEvents: Wend
+    Do While ie.document.ReadyState <> "complete": Sleep 10: DoEvents: Loop
+    
+    Set docweb = ie.document
+    
+    docweb.all.tags("input")(5).Value = "Teste"
+    docweb.all.tags("input")(6).Value = "SENHA"
+    docweb.all.tags("input")(5).Click
+ 
+
+       
+    Do While ie.document.ReadyState <> "complete": Sleep 10: DoEvents: Loop
+    Sleep 100
+
+    Set docweb = ie.document
+
+    
+        
+    Set docweb = ie.document
+    
+    tam = (docweb.getElementsByTagName("table")(0).Rows.Length) 'tamanho da planilha
+     
+
+    While ie.Busy: Sleep 10: DoEvents: Wend
+    Do While ie.document.ReadyState <> "complete": Sleep 10: DoEvents: Loop
+    
+    Set docweb = ie.document
+    
+   
+
+    ie.Quit
+    MsgBox ("CAPTURA REALIZADA COM SUCESSO")
+    
+End Sub

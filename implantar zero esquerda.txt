@@ -1,0 +1,11 @@
+Function ZeroEsquerda(valor)
+Dim DeValorParaTexto, RepeteCaracter, NumeroCaracter
+
+If valor = “” Then
+valor = “0"
+End If
+DeValorParaTexto = CStr(valor) ‘CStr converte numero em texto
+NumeroCaracter = Len(DeValorParaTexto) ‘Conta o mumero de caracteres
+RepeteCaracter = String(10 – NumeroCaracter, “0?) ‘Repete 10 vezes o caracter 0
+ZeroEsquerda = RepeteCaracter & DeValorParaTexto
+End Function

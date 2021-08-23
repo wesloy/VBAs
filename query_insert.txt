@@ -1,0 +1,56 @@
+Dim db As Database
+Dim rs As Recordset
+Dim fsql$
+
+
+Set db = CurrentDb
+
+
+
+                                     fsql$ = "insert into cadastro1 values('" & cartao & "','"
+                                                                fsql$ = fsql$ & Status & "','"
+                                                                fsql$ = fsql$ & CDate(data_cancelamento) & "','"
+                                                                fsql$ = fsql$ & doc_recebido & "','"
+                                                                fsql$ = fsql$ & CDate(data_recebimento) & "','"
+                                                                fsql$ = fsql$ & t_nome_funcionario & "','"
+                                                                fsql$ = fsql$ & T_CPF & "','"
+                                                                fsql$ = fsql$ & T_RG & "',"
+                                                                fsql$ = fsql$ & CLng(t_cod_funcional) & ",'"
+                                                                fsql$ = fsql$ & CDate(T_data_nasc) & "','"
+                                                                fsql$ = fsql$ & T_tel_comercial & "','"
+                                                                fsql$ = fsql$ & T_tel_pessoal & "','"
+                                                                fsql$ = fsql$ & T_departamento & "','"
+                                                                fsql$ = fsql$ & T_area & "','"
+                                                                fsql$ = fsql$ & t_lider & "','"
+                                                                fsql$ = fsql$ & C_bandeira & "','"
+                                                                fsql$ = fsql$ & C_pf_pj & "','"
+                                                                fsql$ = fsql$ & t_produto & "','"
+                                                                fsql$ = fsql$ & T_obs & "','"
+                                                                fsql$ = fsql$ & t_source & "','"
+                                                                fsql$ = fsql$ & t_pct & "','"
+                                                                fsql$ = fsql$ & c_fee & "','"
+                                                                fsql$ = fsql$ & c_criada & "','"
+                                                                fsql$ = fsql$ & CDate(t_data_solucitacao) & "','"
+                                                                fsql$ = fsql$ & CDate(t_data_vencimento) & "','"
+                                                                fsql$ = fsql$ & c_ambiente & "',"
+                                                                fsql$ = fsql$ & CDbl(t_quantidade) & ","
+                                                                fsql$ = fsql$ & CCur(t_limite) & ",'"
+                                                                fsql$ = fsql$ & t_justificativa & "','"
+                                                                fsql$ = fsql$ & t_nome_projeto & "','"
+                                                                fsql$ = fsql$ & t_depart_atingidos & "','"
+                                                                fsql$ = fsql$ & CDate(t_previsao_termino) & "','"
+                                                                fsql$ = fsql$ & t_nome_impresso_cb1 & "',"
+                                                                fsql$ = fsql$ & Banco & ","
+                                                                fsql$ = fsql$ & Agencia & ","
+                                                                fsql$ = fsql$ & conta & ",'"
+                                                                fsql$ = fsql$ & t_nome_adc & "','"
+                                                                fsql$ = fsql$ & data_nasc_ad & "','"
+                                                                fsql$ = fsql$ & t_cpf_adc & "','"
+                                                                fsql$ = fsql$ & t_razao_social & "','"
+                                                                fsql$ = fsql$ & t_nome_impresso_cb2 & "','"
+                                                                fsql$ = fsql$ & t_cnpj & "','"
+                                                                fsql$ = fsql$ & c_responsa & "','"
+                                                                fsql$ = fsql$ & t_descricao & "','"
+                                                                fsql$ = fsql$ & CDate(data_inclusao) & "')"
+                                                    
+                                                                db.Execute (fsql$)
